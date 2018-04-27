@@ -3,6 +3,7 @@
  */
 import express from 'express'
 import expressGQL from 'express-graphql'
+import { connect } from 'mongoose'
 import envSelector from './.env/.env'
 import GQLSchema from './graphql/schema'
 
@@ -12,6 +13,12 @@ let env = envSelector('DEV')
 // start app instance
 let app = express()
 
+// connect to Database
+connect(env.http.mongoURI)
+  .then(
+    () => {console.log('Database Connected')},
+    err => {console.warn('Database Error: ' + err)}
+  )
 /**
  * middleware for application
  */
