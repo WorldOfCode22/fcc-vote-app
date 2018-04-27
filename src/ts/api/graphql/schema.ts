@@ -3,7 +3,8 @@
  */
 import {GraphQLSchema} from 'graphql'
 import root from './root'
-
+import mutations from './mutations'
 export default new GraphQLSchema({
-  query: root
+  query: root,
+  mutation: mutations
 })
