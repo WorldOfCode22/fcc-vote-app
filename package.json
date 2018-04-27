@@ -4,7 +4,8 @@
   "description": "A voting application for Free Code Camp basejump",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "startApi": "node ./src/js/api/app.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/WorldOfCode22/fcc-vote-app#readme",
   "dependencies": {
+    "express": "^4.16.3",
     "express-graphql": "^0.6.12",
     "graphql": "^0.13.2",
     "jsonwebtoken": "^8.2.1",
