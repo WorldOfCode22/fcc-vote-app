@@ -68,4 +68,30 @@ export default class DatabaseHelpers{
         )
     })
   }
+
+  static getPollById(id: string){
+    return new Promise((resolve, reject) => {
+      Poll.findById(id)
+        .then(
+          (doc) => {
+            if (doc) resolve(doc)
+            else reject(new Error('Invalid ID'))
+          },
+          err => reject(new Error('An error occurred while getting poll'))
+        )
+    })
+  }
+  static getPollList(listOfPolls: string[]){
+    return new Promise((resolve, reject) => {
+      let promiseArr = []
+      for (let i = 0; i < listOfPolls.length; i++){
+        promiseArr.push(DatabaseHelpers.getPollById(listOfPolls[i]))
+      }
+      Promise.all(promiseArr)
+        .then(
+          (values) => { resolve(values)},
+          err => { reject(err) }
+        )
+    })
+  }
 }
