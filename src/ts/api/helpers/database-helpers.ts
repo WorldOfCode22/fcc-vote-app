@@ -69,7 +69,7 @@ export default class DatabaseHelpers{
     })
   }
 
-  static getPollById(id: string){
+  static getPollById(id: string): Promise<IPollModel>{
     return new Promise((resolve, reject) => {
       Poll.findById(id)
         .then(
@@ -92,6 +92,44 @@ export default class DatabaseHelpers{
           (values) => { resolve(values)},
           err => { reject(err) }
         )
+    })
+  }
+
+  static deletePollList(listOfPolls: string[]){
+    return new Promise((resolve, reject) => {
+      let promiseArr = []
+      for (let i = 0; i < listOfPolls.length; i++){
+        promiseArr.push(DatabaseHelpers.deletePoll(listOfPolls[i]))
+      }
+      Promise.all(promiseArr)
+        .then(
+          (values) => { resolve(values)},
+          err => { reject(err) }
+        )
+    })
+  }
+
+  static deleteUser(id: string): Promise<IUserModel>{
+    return new Promise(async(resolve, reject) => {
+      try{
+        let user = await DatabaseHelpers.getUserById(id)
+        let removedUser = await user.remove()
+        resolve(removedUser)
+      } catch (e) {
+        reject(e)
+      }
+    })
+  }
+
+  static deletePoll(id: string): Promise<IPollModel>{
+    return new Promise(async(resolve, reject) => {
+      try{
+        let poll = await DatabaseHelpers.getPollById(id)
+        let removedPoll = await poll.remove()
+        resolve(removedPoll)
+      } catch (e) {
+        reject(e)
+      }
     })
   }
 }
