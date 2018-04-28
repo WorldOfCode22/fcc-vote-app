@@ -6,8 +6,8 @@ Find away to make JWT verify resolve as user model
 make tokens expire
 delete user: Done
 delete poll: Done
-edit poll
-edit user
+edit poll: Done
+edit user: Done
 vote
 update token
 get all polls
