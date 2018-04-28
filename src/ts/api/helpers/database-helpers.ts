@@ -1,8 +1,9 @@
 import selector from '../.env/.env'
 import {sign, verify} from 'jsonwebtoken'
 import {createHmac} from 'crypto'
-import { Poll, IPollModel } from '../mongoose/poll';
+import { Poll, IPollModel, IPoll } from '../mongoose/poll';
 import { IUser, User, IUserModel } from '../mongoose/users';
+import { resolve } from 'dns';
 
 let env = selector("DEV")
 
@@ -128,6 +129,17 @@ export default class DatabaseHelpers{
         let removedPoll = await poll.remove()
         resolve(removedPoll)
       } catch (e) {
+        reject(e)
+      }
+    })
+  }
+
+  static savePoll(poll: IPollModel): Promise<IPollModel>{
+    return new Promise(async(resolve, reject) => {
+      try{
+        let savedPoll = await poll.save()
+        resolve(savedPoll)
+      } catch(e) {
         reject(e)
       }
     })
