@@ -5,14 +5,16 @@
 import { Schema, Document, model, Model } from "mongoose"
 
 export interface IUser {
-  username?: string,
-  password?: string,
+  username: string,
+  password: string,
+  polls: string[]
   createdAt: number
 }
 
 export var UserSchema: Schema = new Schema({
   username: String,
   password: String,
+  polls: Array,
   createdAt: Number
 });
 
